@@ -1,0 +1,6 @@
+{
+    "WINSTON": {
+        "FILENAME": "system.log",
+        "DIRNAME": "logs"
+    }
+}
