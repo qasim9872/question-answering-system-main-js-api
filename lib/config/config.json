@@ -1,4 +1,8 @@
 {
+    "SERVER": {
+        "PORT": 3000,
+        "SECRET": "s3cret"
+    },
     "WINSTON": {
         "FILENAME": "system.log",
         "DIRNAME": "logs"

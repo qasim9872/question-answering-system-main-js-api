@@ -1,118 +1,118 @@
-import * as winston from 'winston';
-import * as colors from 'colors';
-import { LEVEL } from 'triple-beam';
-import * as util from 'util';
-import {
-    winstonFileName,
-    winstonDirName
-} from "../config/winston.config"
-
-
+import * as appDir from "app-root-path"
+import * as colors from "colors"
 import * as fs from "fs"
+import * as path from "path"
+import { LEVEL } from "triple-beam"
+import * as util from "util"
+import * as winston from "winston"
+import { winstonDirName, winstonFileName } from "../config/winston.config"
 
-if (!fs.existsSync(winstonDirName)) {
-    fs.mkdirSync(winstonDirName)
+const logDir: string = path.join(appDir.path, winstonDirName)
+
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir)
 }
 
 export class Logger {
-
-
-    public static toString(msgs: any): string {
-        if (typeof msgs === 'string') {
-            return msgs;
-        }
-
-        const mm: any[] = [];
-
-        for (const m of msgs) {
-            mm.push(util.format(m));
-        }
-
-        return mm.join(' ');
+  public static toString(msgs: any): string {
+    if (typeof msgs === "string") {
+      return msgs
     }
 
-    public static getLogger(name: string): Logger {
-        return new Logger(name);
+    const mm: any[] = []
+
+    for (const m of msgs) {
+      mm.push(util.format(m))
     }
 
-    public myFormat:any  = winston.format.printf((info) => {
-        return `${info.timestamp} [${info.label}] ${info.level}: ${info.message}`;
-    });
+    return mm.join(" ")
+  }
 
-    public options: winston.LoggerOptions = {
-        exitOnError: false,
-        level: 'debug',
-    };
+  public static getLogger(name: string): Logger {
+    const extractedName: RegExpMatchArray | null = name.match(/.*\/(.*)\./)
+    return new Logger(extractedName ? extractedName[1] : name)
+  }
 
-    public logger: winston.Logger;
+  public myFormat: any = winston.format.printf((info) => {
+    return `${info.timestamp} [${info.label.padEnd(10)}] ${info.level}: ${
+      info.message
+    }`
+  })
 
-    private name: string;
+  public options: winston.LoggerOptions = {
+    exitOnError: false,
+    level: "debug"
+  }
 
-    private colormap: any = {
-        debug: colors.gray,
-        info: colors.cyan, // (msg: string):string => { return msg; },
-        warn: colors.magenta,
-        error: colors.red
-    };
+  public logger: winston.Logger
 
-    constructor(name: string) {
-        this.name = name;
+  private name: string
 
-        this.options.format = winston.format.combine(
-            winston.format((info) => {
-                info.level = info.level.toUpperCase();
+  private colormap: any = {
+    debug: colors.gray,
+    info: colors.cyan, // (msg: string):string => { return msg; },
+    warn: colors.magenta,
+    error: colors.red
+  }
 
-                return info;
-            })(),
-            // winston.format.colorize({ all: true }),
-            winston.format.timestamp({ format: 'MMM DD hh:mm:ss' }),
-            winston.format.label({ label: name }),
-            winston.format.printf((info) => {
-                return this.logprint(info);
-            })
-        );
-        this.options.transports = [
-            new winston.transports.Console(),
-            new winston.transports.File({
-                dirname: winstonDirName,
-                filename: `${this.name}-${winstonFileName}`
-            })
-        ];
+  constructor(name: string) {
+    this.name = name
 
-        this.logger = winston.createLogger(this.options);
-    }
+    this.options.format = winston.format.combine(
+      winston.format((info) => {
+        info.level = info.level.toUpperCase()
 
-    public logprint(info: any): string {
+        return info
+      })(),
+      // winston.format.colorize({ all: true }),
+      winston.format.timestamp({ format: "MMM DD hh:mm:ss" }),
+      winston.format.label({ label: name }),
+      winston.format.printf((info) => {
+        return this.logprint(info)
+      })
+    )
+    this.options.transports = [
+      new winston.transports.Console(),
+      new winston.transports.File({
+        dirname: logDir,
+        filename: `${this.name}-${winstonFileName}`
+      })
+    ]
 
-        const colorize: any = this.colormap[info[LEVEL]] || colors.zebra;
+    this.logger = winston.createLogger(this.options)
+  }
 
-        let logmsg: string = [  `${colors.yellow(info.timestamp)}`,
-                                `[${colors.green(info.label)}]`,
-                                `${colorize(info.level)}: `]
-                                .join(" ");
+  public logprint(info: any): string {
+    const colorize: any = this.colormap[info[LEVEL]] || colors.zebra
 
-        logmsg += colorize(Logger.toString(info.message));
+    let logmsg: string = [
+      `${colors.yellow(info.timestamp)}`,
+      `[${colors.green(info.label)}]`,
+      `${colorize(info.level)}: `
+    ].join(" ")
 
-        return logmsg;
-    }
+    logmsg += colorize(Logger.toString(info.message))
 
-    get logopts(): any {
-        return this.options;
-    }
+    return logmsg
+  }
 
-    public debug(format: any, ...params: any[]): void {
-        this.logger.debug([format].concat(params));
-    }
+  get logopts(): any {
+    return this.options
+  }
 
-    public info(format: any, ...params: any[]): void {
-        this.logger.info([format].concat(params));
-    }
+  public debug(format: any, ...params: any[]): void {
+    this.logger.debug([format].concat(params))
+  }
 
-    public warn(format: any, ...params: any[]): void {
-        this.logger.warn([format].concat(params));
-    }
+  public info(format: any, ...params: any[]): void {
+    this.logger.info([format].concat(params))
+  }
 
-    public error(format: any, ...params: any[]): void {
-        this.logger.error([format].concat(params));
-    }
+  public warn(format: any, ...params: any[]): void {
+    this.logger.warn([format].concat(params))
+  }
+
+  public error(format: any, ...params: any[]): void {
+    this.logger.error([format].concat(params))
+  }
 }

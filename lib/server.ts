@@ -1,10 +1,11 @@
-import { Logger } from  "./utils/logger" 
-import app from "./app";
+import app from "./app"
+import { serverPort } from "./config/server.config"
 
-const logger = Logger.getLogger('server')
+import { Logger } from "./utils/logger"
+const logger = Logger.getLogger(__filename)
 
-const PORT = 3000;
+const PORT = serverPort
 
 app.listen(PORT, () => {
-    logger.info(`Express server listening on port ${PORT}`);
+  logger.info(`Express server listening on port ${PORT}`)
 })

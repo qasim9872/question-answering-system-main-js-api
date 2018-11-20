@@ -1,29 +1,96 @@
+// Config
+import { appSecret } from "./config/server.config"
 
+// Core
 import * as express from "express"
-import * as bodyParser from "body-parser"
+import { NextFunction, Request, Response } from "express"
+
+// Middlewares
+import { json, urlencoded } from "body-parser"
+import compression = require("compression")
+import cors = require("cors")
+import * as session from "express-session"
+import * as helmet from "helmet"
+import morgan = require("morgan")
+
+// Api
+import { default as api } from "./api"
+
+// Utils
+import { GenericCustomError, NotFoundError } from "./utils/error"
+import { Logger } from "./utils/logger"
+const logger = Logger.getLogger(__filename)
 
 const app = express()
 
-class App {
+// =======================
+// configuration =========
+// =======================
 
-    private app: express.Application;
-
-    constructor() {
-        this.app = express();
-        this.setup();        
+app.use(
+  session({
+    secret: appSecret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 60000
     }
-
-    public getApp(): express.Application {
-        return this.app
+  })
+)
+app.use(
+  urlencoded({
+    extended: false
+  })
+)
+app.use(compression())
+app.use(json())
+app.use(cors())
+app.use(
+  morgan("combined", {
+    stream: {
+      write: (str) => {
+        logger.info(str)
+      }
     }
+  })
+)
 
-    private setup(): void{
-        // support application/json type post data
-        this.app.use(bodyParser.json());
-        // support application/x-www-form-urlencoded post data
-        this.app.use(bodyParser.urlencoded({ extended: false }));
-    }
+// =======================
+// security ==============
+// =======================
+app.use(helmet())
+app.disable("x-powered-by")
 
-}
+// =======================
+// routes ================
+// =======================
 
-export default new App().getApp();
+app.use("/healthcheck", (req: Request, res: Response) => {
+  res.sendStatus(200)
+})
+app.use("/api", api)
+
+// =======================
+// error handling ========
+// =======================
+
+// catch 404 and forward to error handler
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const err = new NotFoundError(`Resource Not Found: ${req.path}`)
+  next(err)
+})
+
+// error handler
+app.use(
+  (
+    err: GenericCustomError,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    logger.error(err)
+    res.status(err.code || 500).json(err)
+  }
+)
+
+export default app
