@@ -1,9 +1,7 @@
 import * as deepmerge from "deepmerge"
+import configData from "./config"
 
-/* tslint:disable:no-var-requires */
-const configFile = require(`${__dirname}/config.json`)
-
-const config: any = deepmerge(configFile, configFile, {
+const config: any = deepmerge(configData, configData, {
   arrayMerge: (a, b) => b
 })
 
