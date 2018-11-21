@@ -4,6 +4,10 @@ import v1Api from "./v1/v1-routes"
 
 const router = Router()
 
-router.use("/v1", v1Api)
+async function setup() {
+  router.use("/v1", await v1Api)
+}
+
+setup()
 
 export default router

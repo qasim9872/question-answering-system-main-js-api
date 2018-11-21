@@ -86,7 +86,7 @@ app.use(
     next: NextFunction
   ) => {
     logger.error(err)
-    res.status(err.code || 500).json(err)
+    res.status(err.code || 500).send(err)
   }
 )
 
