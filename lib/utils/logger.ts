@@ -13,7 +13,7 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir)
 }
 
-export class Logger {
+export default class Logger {
   public static toString(msgs: any): string {
     if (typeof msgs === "string") {
       return msgs
@@ -75,7 +75,7 @@ export class Logger {
       new winston.transports.Console(),
       new winston.transports.File({
         dirname: logDir,
-        filename: `${this.name}-${winstonFileName}`
+        filename: winstonFileName
       })
     ]
 

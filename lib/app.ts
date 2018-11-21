@@ -14,11 +14,11 @@ import * as helmet from "helmet"
 import morgan = require("morgan")
 
 // Api
-import { default as api } from "./api"
+import { default as api } from "./api/api"
 
 // Utils
 import { GenericCustomError, NotFoundError } from "./utils/error"
-import { Logger } from "./utils/logger"
+import Logger from "./utils/logger"
 const logger = Logger.getLogger(__filename)
 
 const app = express()
@@ -65,9 +65,6 @@ app.disable("x-powered-by")
 // routes ================
 // =======================
 
-app.use("/healthcheck", (req: Request, res: Response) => {
-  res.sendStatus(200)
-})
 app.use("/api", api)
 
 // =======================
