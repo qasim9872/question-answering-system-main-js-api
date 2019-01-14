@@ -2,26 +2,22 @@ import { Request, Response } from "express"
 import * as Joi from "joi"
 import { IRoute, requestTypes } from "../../IRoute.interface"
 
-import questionHandler from "../../../controller/question"
-
-const name: string = `question`
+const name: string = `login`
 const requestType: requestTypes = requestTypes.POST
 const validationSchema = {
   body: {
-    question: Joi.string().required()
+    email: Joi.string()
+      .email()
+      .required(),
+    password: Joi.string().required()
   }
 }
 
 const handler = async (req: Request, res: Response) => {
-  const question = req.body.question
-
-  const answer = await questionHandler(question)
-
   res.status(200).json({
-    api_version: `v1`,
-    endpoint_name: name,
-    app_name: `final year project app`,
-    answer
+    user: {
+      name: "Qasim"
+    }
   })
 }
 

@@ -1,3 +1,5 @@
+import http = require("http")
+
 import app from "./app"
 import { serverPort } from "./config/server.config"
 
@@ -6,6 +8,9 @@ const logger = Logger.getLogger(__filename)
 
 const PORT = serverPort
 
-app.listen(PORT, () => {
+const server = http.createServer(app)
+
+server.listen(PORT, "0.0.0.0", () => {
   logger.info(`Express server listening on port ${PORT}`)
 })
+
