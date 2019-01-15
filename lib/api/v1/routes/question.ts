@@ -17,12 +17,7 @@ const handler = async (req: Request, res: Response) => {
 
   const answer = await questionHandler(question)
 
-  res.status(200).json({
-    api_version: `v1`,
-    endpoint_name: name,
-    app_name: `final year project app`,
-    answer
-  })
+  res.status(200).json(answer)
 }
 
 export const endpoint: IRoute = {

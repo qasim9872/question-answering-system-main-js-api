@@ -95,7 +95,7 @@ export function fixURI(sparql: string) {
   return sparql
 }
 
-export function decoder(encodedSparql: string) {
+export default function decoder(encodedSparql: string) {
   // decode
   // --> reverse replacements returns short_sparql
   const shortSparql = reverseReplacements(encodedSparql)
