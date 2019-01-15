@@ -1,4 +1,9 @@
 export default {
+  DB: {
+    NAME: "qa-system",
+    HOST: "localhost",
+    PORT: "27017"
+  },
   NMT: {
     URL: "http://localhost:6542"
   },

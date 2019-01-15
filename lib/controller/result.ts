@@ -1,3 +1,4 @@
+import IResult from "../interface/result.interface"
 /* tslint:disable:no-var-requires */
 const dps = require("dbpedia-sparql-client").default
 /* tslint:disable:no-var-requires */
@@ -9,12 +10,6 @@ export function dbPediaResults(query: string) {
     .asJson()
 }
 
-export interface IResult {
-  varName: string
-  lang: string
-  value: string
-}
-
 export function extractResult(resultObj: any) {
   const result: IResult[] = []
   const bindings: [] = resultObj.results.bindings
@@ -23,6 +18,7 @@ export function extractResult(resultObj: any) {
     Object.keys(binding).forEach((key: string) => {
       const data = binding[key]
       result.push({
+        source: "DBPedia",
         varName: key,
         lang: data["xml:lang"],
         value: data.value
@@ -37,7 +33,5 @@ export function extractResult(resultObj: any) {
 export default async function(query: string) {
   const dbPediaResult = await dbPediaResults(query)
 
-  return {
-    dbPedia: extractResult(dbPediaResult)
-  }
+  return extractResult(dbPediaResult)
 }

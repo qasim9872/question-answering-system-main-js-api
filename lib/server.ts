@@ -1,5 +1,8 @@
 import http = require("http")
 
+// Setup
+import mongooseSetup from "./setup/mongoose"
+
 import app from "./app"
 import { serverPort } from "./config/server.config"
 
@@ -10,7 +13,8 @@ const PORT = serverPort
 
 const server = http.createServer(app)
 
-server.listen(PORT, "0.0.0.0", () => {
-  logger.info(`Express server listening on port ${PORT}`)
+mongooseSetup().then(() => {
+  server.listen(PORT, "0.0.0.0", () => {
+    logger.info(`Express server listening on port ${PORT}`)
+  })
 })
-
