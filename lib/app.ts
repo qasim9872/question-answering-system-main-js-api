@@ -14,7 +14,7 @@ import * as helmet from "helmet"
 import morgan = require("morgan")
 
 // Api
-import { default as api } from "./api/api"
+import api from "./api"
 
 // Utils
 import { GenericCustomError, NotFoundError } from "./utils/error"

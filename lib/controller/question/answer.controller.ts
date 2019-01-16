@@ -1,10 +1,10 @@
 import querystring = require("querystring")
 import * as rp from "request-promise"
-import IQuestion from "../interface/question.interface"
-import QuestionModel from "../model/question"
-import { nmtBaseUrl } from "./../config/nmt.config"
-import getResult from "./result"
-import decoder from "./sparql"
+import { nmtBaseUrl } from "../../config/nmt.config"
+import IQuestion from "../../interface/question.interface"
+import QuestionModel from "../../model/question"
+import getResult from "../helper/knowledge-graphs/db-pedia.results"
+import decoder from "../helper/nmt/sparql.decoder"
 
 function getConfig(question: string) {
   const params = {

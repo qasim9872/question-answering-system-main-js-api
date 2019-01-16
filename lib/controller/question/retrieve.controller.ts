@@ -1,4 +1,4 @@
-import QuestionModel from "../model/question"
+import QuestionModel from "../../model/question"
 
 export async function getQuestionsByParams(params: any) {
   return QuestionModel.find({ ...params }).sort("-updatedAt")

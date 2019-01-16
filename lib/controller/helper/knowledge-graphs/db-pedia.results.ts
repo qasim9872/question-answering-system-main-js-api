@@ -1,4 +1,4 @@
-import IResult from "../interface/result.interface"
+import IResult from "../../../interface/result.interface"
 /* tslint:disable:no-var-requires */
 const dps = require("dbpedia-sparql-client").default
 /* tslint:disable:no-var-requires */
