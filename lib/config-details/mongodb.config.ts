@@ -1,5 +1,5 @@
-import Config from "./index"
+import config from "./index"
 
-export const name = Config.DB.NAME
-export const port = Config.DB.PORT
-export const host = Config.DB.HOST
+export const name: string = config.get("DB.NAME")
+export const port: number = config.get("DB.PORT")
+export const host: string = config.get("DB.HOST")

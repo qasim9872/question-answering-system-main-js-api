@@ -1,4 +1,4 @@
-import Config from "./index"
+import config from "./index"
 
-export const winstonFileName = Config.WINSTON.FILENAME
-export const winstonDirName = Config.WINSTON.DIRNAME
+export const winstonFileName: string = config.get("WINSTON.FILENAME")
+export const winstonDirName: string = config.get("WINSTON.DIRNAME")

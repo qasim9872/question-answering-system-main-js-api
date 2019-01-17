@@ -1,3 +1,3 @@
-import { config } from "node-config-ts"
+import * as config from "config"
 
 export default config

@@ -18,6 +18,7 @@ import api from "./api"
 
 // Utils
 import { GenericCustomError, NotFoundError } from "./utils/error"
+import listRoutes from "./utils/list-routes"
 import Logger from "./utils/logger"
 const logger = Logger.getLogger(__filename)
 
@@ -89,5 +90,7 @@ app.use(
     res.status(err.code || 500).send(err)
   }
 )
+
+listRoutes(api)
 
 export default app

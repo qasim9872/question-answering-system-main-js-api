@@ -1,3 +1,3 @@
-import Config from "./index"
+import config from "./index"
 
-export const nmtBaseUrl = Config.NMT.URL
+export const nmtBaseUrl: string = config.get("NMT.URL")

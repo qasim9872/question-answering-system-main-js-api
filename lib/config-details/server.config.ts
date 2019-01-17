@@ -1,4 +1,4 @@
-import Config from "./index"
+import config from "./index"
 
-export const serverPort = Config.SERVER.PORT
-export const appSecret = Config.SERVER.SECRET
+export const serverPort: number = config.get("SERVER.PORT")
+export const appSecret: string = config.get("SERVER.SECRET")
