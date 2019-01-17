@@ -1,6 +1,6 @@
 import querystring = require("querystring")
 import * as rp from "request-promise"
-import { nmtBaseUrl } from "../../config/nmt.config"
+import { nmtBaseUrl } from "../../config-details/nmt.config"
 import IQuestion from "../../interface/question.interface"
 import QuestionModel from "../../model/question"
 import getResult from "../helper/knowledge-graphs/db-pedia.results"

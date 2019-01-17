@@ -5,7 +5,10 @@ import * as path from "path"
 import { LEVEL } from "triple-beam"
 import * as util from "util"
 import * as winston from "winston"
-import { winstonDirName, winstonFileName } from "../config/winston.config"
+import {
+  winstonDirName,
+  winstonFileName
+} from "../config-details/winston.config"
 
 const logDir: string = path.join(appDir.path, winstonDirName)
 

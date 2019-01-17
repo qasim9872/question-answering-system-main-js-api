@@ -1,5 +1,5 @@
 // Config
-import { appSecret } from "./config/server.config"
+import { appSecret } from "./config-details/server.config"
 
 // Core
 import * as express from "express"

@@ -4,12 +4,10 @@ import http = require("http")
 import mongooseSetup from "./setup/mongoose"
 
 import app from "./app"
-import { serverPort } from "./config/server.config"
+import { serverPort as PORT } from "./config-details/server.config"
 
 import Logger from "./utils/logger"
 const logger = Logger.getLogger(__filename)
-
-const PORT = serverPort
 
 const server = http.createServer(app)
 

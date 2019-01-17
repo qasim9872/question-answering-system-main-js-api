@@ -5,7 +5,7 @@ import Logger from "../utils/logger"
 const logger = Logger.getLogger(__filename)
 
 // Build the connection string
-import { host, name, port } from "../config/mongodb.config"
+import { host, name, port } from "../config-details/mongodb.config"
 const dbURI = `mongodb://${host}:${port}/${name}`
 
 // Create the database connection
