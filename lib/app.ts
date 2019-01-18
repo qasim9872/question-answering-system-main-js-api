@@ -3,7 +3,6 @@ import { appSecret } from "./config-details/server.config"
 
 // Core
 import * as express from "express"
-import { NextFunction, Request, Response } from "express"
 
 // Middlewares
 import { json, urlencoded } from "body-parser"
@@ -17,7 +16,7 @@ import morgan = require("morgan")
 import api from "./api"
 
 // Utils
-import { GenericCustomError, NotFoundError } from "./utils/error"
+import { errorHandler, errorMiddleware } from "./utils/error"
 import listRoutes from "./utils/list-routes"
 import Logger from "./utils/logger"
 const logger = Logger.getLogger(__filename)
@@ -73,24 +72,9 @@ app.use("/api", api)
 // =======================
 
 // catch 404 and forward to error handler
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const err = new NotFoundError(`Resource Not Found: ${req.path}`)
-  next(err)
-})
+app.use(errorMiddleware)
 
 // error handler
-app.use(
-  (
-    err: GenericCustomError,
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    logger.error(err)
-    res.status(err.code || 500).send(err)
-  }
-)
-
-listRoutes(api)
+app.use(errorHandler)
 
 export default app
