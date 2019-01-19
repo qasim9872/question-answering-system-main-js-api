@@ -1,5 +1,6 @@
-import { Document, Model, model, Schema } from "mongoose"
-import IQuestion, { AnswerStatus } from "../interface/question.interface"
+import { Document, model, PaginateModel, Schema } from "mongoose"
+import * as mongoosePaginate from "mongoose-paginate"
+import IQuestion from "../interface/question.interface"
 import Generator from "../utils/id-generator"
 
 export interface IQuestionModel extends IQuestion, Document {
@@ -31,7 +32,9 @@ export const questionSchema: Schema = new Schema(
   }
 )
 
-const questionModel: Model<IQuestionModel> = model<IQuestionModel>(
+questionSchema.plugin(mongoosePaginate)
+
+const questionModel: PaginateModel<IQuestionModel> = model<IQuestionModel>(
   "Question",
   questionSchema
 )
