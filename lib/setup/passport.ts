@@ -1,10 +1,12 @@
 import * as passport from "passport"
+import * as passportAnonymous from "passport-anonymous"
 import * as passportJwt from "passport-jwt"
 import * as passportLocal from "passport-local"
 
 import { appSecret } from "../config-details/server.config"
-import User, { IUserModel, userSchema } from "../model/user"
+import User, { IUserModel } from "../model/user"
 
+const anonymousStrategy = passportAnonymous.Strategy
 const localStrategy = passportLocal.Strategy
 const extractJWT = passportJwt.ExtractJwt
 const jwtStrategy = passportJwt.Strategy
@@ -51,6 +53,9 @@ passport.use(
   )
 )
 
+/**
+ * Authenticate user using signed JWT
+ */
 passport.use(
   new jwtStrategy(
     {
@@ -73,8 +78,16 @@ passport.use(
   )
 )
 
+passport.use(new anonymousStrategy())
+
 export function login() {
   return passport.authenticate("local", {
+    session: false
+  })
+}
+
+export function isAuthenticatedOrAnonymous() {
+  return passport.authenticate(["jwt", "anonymous"], {
     session: false
   })
 }

@@ -3,6 +3,8 @@ import Router from "express-promise-router"
 /* tslint:disable:no-var-requires */
 const validate = require("express-validation")
 
+import { isAuthenticatedOrAnonymous } from "../../../setup/passport"
+
 import {
   handler as answerHandler,
   schema as answerSchema
@@ -14,7 +16,17 @@ import {
 
 const router = Router()
 
-router.post("/answer", validate(answerSchema), answerHandler)
-router.post("/retrieve", validate(retrieveSchema), retrieveHandler)
+router.post(
+  "/answer",
+  validate(answerSchema),
+  isAuthenticatedOrAnonymous(),
+  answerHandler
+)
+router.post(
+  "/retrieve",
+  validate(retrieveSchema),
+  isAuthenticatedOrAnonymous(),
+  retrieveHandler
+)
 
 export default router
