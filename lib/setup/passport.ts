@@ -58,7 +58,6 @@ passport.use(
       secretOrKey: appSecret
     },
     (payload, done) => {
-      console.log(payload)
       User.findOne({ email: payload.email.toLowerCase() }, (err, user: any) => {
         if (err) {
           return done(err)

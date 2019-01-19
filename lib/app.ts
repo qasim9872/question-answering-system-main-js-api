@@ -39,20 +39,25 @@ app.use(
 app.use(json())
 
 app.use(
+  cors({
+    credentials: true
+  })
+)
+
+app.use(
   session({
+    name: "qa-system.session-key",
     secret: appSecret,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 60000
+      maxAge: 24 * 60 * 1000 // 1 day
     }
   })
 )
 
 app.use(passport.initialize())
 app.use(passport.session())
-
-app.use(cors())
 
 app.use(
   morgan("combined", {
