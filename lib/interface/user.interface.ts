@@ -4,6 +4,7 @@ export default interface IUser {
   name: string
   email: string
   password: string
+  image: string
 
   asked: Schema.Types.ObjectId[]
   liked: Schema.Types.ObjectId[]

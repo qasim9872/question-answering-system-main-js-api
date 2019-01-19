@@ -6,15 +6,17 @@ import retrieveQuestionsController from "../../../controller/question/retrieve.c
 export const schema = {
   body: {
     id: Joi.string(),
-    offset: Joi.number()
+    offset: Joi.number(),
+    fetch: Joi.number()
   }
 }
 
 export async function handler(req: Request, res: Response) {
   const id: string = req.body.id
   const offset: number = req.body.offset || 0
+  const fetch: number = req.body.fetch
 
-  const results = await retrieveQuestionsController(id, offset)
+  const results = await retrieveQuestionsController(id, offset, fetch)
 
   res.status(200).json(results)
 }

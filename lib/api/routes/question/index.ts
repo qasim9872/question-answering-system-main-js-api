@@ -22,11 +22,6 @@ router.post(
   isAuthenticatedOrAnonymous(),
   answerHandler
 )
-router.post(
-  "/retrieve",
-  validate(retrieveSchema),
-  isAuthenticatedOrAnonymous(),
-  retrieveHandler
-)
+router.post("/retrieve", validate(retrieveSchema), retrieveHandler)
 
 export default router

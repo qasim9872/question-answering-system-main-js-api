@@ -13,6 +13,7 @@ export const userSchema: Schema = new Schema(
     name: String,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    image: String,
 
     asked: [{ type: Schema.Types.ObjectId, ref: "Question" }],
     liked: [{ type: Schema.Types.ObjectId, ref: "Question" }],
