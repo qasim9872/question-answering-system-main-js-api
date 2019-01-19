@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import * as Joi from "joi"
 
-import questionsHandler from "../../../controller/question/retrieve.controller"
+import retrieveQuestionsController from "../../../controller/question/retrieve.controller"
 
 export const schema = {
   body: {
@@ -12,7 +12,7 @@ export const schema = {
 export async function handler(req: Request, res: Response) {
   const id = req.body.id
 
-  const results = await questionsHandler(id)
+  const results = await retrieveQuestionsController(id)
 
   res.status(200).json(results)
 }

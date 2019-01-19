@@ -6,18 +6,21 @@ import * as express from "express"
 
 // Middlewares
 import { json, urlencoded } from "body-parser"
-import compression = require("compression")
-import cors = require("cors")
+import * as compression from "compression"
+import * as cors from "cors"
 import * as session from "express-session"
 import * as helmet from "helmet"
-import morgan = require("morgan")
+import * as morgan from "morgan"
+import * as passport from "passport"
+
+// Setup
+import {} from "./setup/passport"
 
 // Api
 import api from "./api"
 
 // Utils
 import { errorHandler, errorMiddleware } from "./utils/error"
-import listRoutes from "./utils/list-routes"
 import Logger from "./utils/logger"
 const logger = Logger.getLogger(__filename)
 
@@ -26,6 +29,14 @@ const app = express()
 // =======================
 // configuration =========
 // =======================
+
+app.use(compression())
+app.use(
+  urlencoded({
+    extended: false
+  })
+)
+app.use(json())
 
 app.use(
   session({
@@ -37,14 +48,12 @@ app.use(
     }
   })
 )
-app.use(
-  urlencoded({
-    extended: false
-  })
-)
-app.use(compression())
-app.use(json())
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(cors())
+
 app.use(
   morgan("combined", {
     stream: {

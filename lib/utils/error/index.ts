@@ -1,8 +1,13 @@
 import { NextFunction, Request, Response } from "express"
-import Logger from "../logger"
-import { GenericCustomError } from "./generic-custom-error"
+
+/* tslint:disable:no-var-requires */
+const ev = require("express-validation")
+
+import { CustomError } from "ts-custom-error"
 import { NotFoundError } from "./not-found-error"
 
+import Logger from "../logger"
+import { GenericCustomError } from "./generic-custom-error"
 const logger = Logger.getLogger("error-handler")
 
 export function errorMiddleware(
@@ -14,12 +19,22 @@ export function errorMiddleware(
   next(err)
 }
 
+function isCustomError(err: any): err is GenericCustomError {
+  return err instanceof CustomError
+}
+
 export function errorHandler(
-  err: GenericCustomError,
+  err: any,
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  logger.error(err)
-  res.status(err.code || 500).send(err)
+  if (err instanceof ev.ValidationError) {
+    return res.status(err.status).json(err)
+  } else if (isCustomError(err)) {
+    return res.status(err.code).json(err)
+  }
+
+  logger.error(`unhandler error`, err)
+  res.status(500).send(err)
 }

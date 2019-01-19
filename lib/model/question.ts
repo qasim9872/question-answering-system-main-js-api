@@ -6,9 +6,6 @@ export interface IQuestionModel extends IQuestion, Document {
   // Meta data
   createdAt: Date
   updatedAt: Date
-
-  // Additional data
-  answerStatus: AnswerStatus
 }
 
 export const questionSchema: Schema = new Schema(
@@ -20,15 +17,14 @@ export const questionSchema: Schema = new Schema(
         return Generator()
       }
     },
+
+    askedBy: { type: Schema.Types.ObjectId, ref: "Question" },
+    likes: { type: Number, default: 0 },
+    dislikes: { type: Number, default: 0 },
+
     question: String,
     query: String,
-    results: Array,
-    answerStatus: {
-      type: String,
-      enum: [AnswerStatus.NOT_SET, AnswerStatus.GOOD, AnswerStatus.BAD],
-      default: AnswerStatus.NOT_SET,
-      required: true
-    }
+    results: Array
   },
   {
     timestamps: true
