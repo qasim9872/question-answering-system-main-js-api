@@ -11,16 +11,18 @@ export function getAvatarUrl(name: string) {
 
 export default async function registerUser(
   name: string,
+  username: string,
   email: string,
   password: string,
   previouslyAsked: string[] = []
 ) {
   const asked = await validateQuestionIds(previouslyAsked)
 
-  await checkUserExists(email)
+  await checkUserExists(email, username)
 
   const user = await UserModel.create({
     name,
+    username,
     email,
     password,
     asked,
