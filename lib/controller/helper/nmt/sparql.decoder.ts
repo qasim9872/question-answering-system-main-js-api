@@ -46,10 +46,12 @@ export function reverseReplacements(encodedSparql: string) {
   REPLACEMENTS.forEach((r) => {
     const original = r[0]
     const encoding = r[r.length - 1]
-    encodedSparql = encodedSparql.replace(encoding, original)
+    const encodingRegex = new RegExp(encoding, "g")
+    encodedSparql = encodedSparql.replace(encodingRegex, original)
 
     const strippedEncoding = encoding.trim()
-    encodedSparql = encodedSparql.replace(strippedEncoding, original)
+    const strippedEncodingRegex = new RegExp(strippedEncoding, "g")
+    encodedSparql = encodedSparql.replace(strippedEncodingRegex, original)
   })
 
   return encodedSparql

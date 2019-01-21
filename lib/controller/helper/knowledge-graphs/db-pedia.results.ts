@@ -3,6 +3,17 @@ import IResult from "../../../interface/result.interface"
 const dps = require("dbpedia-sparql-client").default
 /* tslint:disable:no-var-requires */
 
+export function getResponseForEmptyResult(): IResult[] {
+  return [
+    {
+      source: "Server",
+      varName: "anonymous",
+      lang: "en",
+      value: ["No response available for the provided query"].join("\n")
+    }
+  ]
+}
+
 export function getInvalidQueryResponse(): IResult[] {
   return [
     {
@@ -33,15 +44,21 @@ export function extractResult(resultObj: any) {
       const data = binding[key]
       result.push({
         source: "DBPedia",
-        varName: key,
+        varName: key || "key",
         lang: data["xml:lang"],
         value: data.value
       })
     })
   })
 
-  // Only return the result which is in english
-  return result.filter((val) => val.lang === "en")
+  // Only return the result which is in english if available
+  const englishResult = result.filter((val) => val.lang === "en")
+
+  return englishResult.length > 0
+    ? englishResult
+    : result.length > 0
+    ? result
+    : getResponseForEmptyResult()
 }
 
 export default async function(query: string) {
