@@ -15,6 +15,7 @@ import * as passport from "passport"
 
 // Setup
 import {} from "./setup/passport"
+import swaggerSetup from "./setup/swagger"
 
 // Api
 import api from "./api"
@@ -80,6 +81,7 @@ app.disable("x-powered-by")
 // =======================
 
 app.use("/api", api)
+swaggerSetup(app)
 
 // =======================
 // error handling ========

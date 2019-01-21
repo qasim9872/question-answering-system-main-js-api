@@ -15,7 +15,7 @@ export const schema = {
 
 /**
  * This route registers a new user using the data provided. The session data is also migrated
- * @route POST /api/v1/auth/register
+ * @route POST /auth/register
  * @group auth - Operations about user
  * @param {string} name.body.required - name
  * @param {string} username.body.required - username
