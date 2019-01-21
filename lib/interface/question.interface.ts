@@ -10,8 +10,8 @@ export const enum AnswerStatus {
 export default interface IQuestion {
   // meta
   askedBy?: Schema.Types.ObjectId
-  likes?: number
-  dislikes?: number
+  likedBy?: Schema.Types.ObjectId[]
+  dislikedBy?: Schema.Types.ObjectId[]
 
   // data
   question: string

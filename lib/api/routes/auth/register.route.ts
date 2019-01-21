@@ -9,21 +9,33 @@ export const schema = {
     email: Joi.string()
       .email()
       .required(),
-    password: Joi.string().required(),
-    previouslyAsked: Joi.array()
+    password: Joi.string().required()
   }
 }
 
+/**
+ * This route registers a new user using the data provided. The session data is also migrated
+ * @route POST /api/v1/auth/register
+ * @group auth - Operations about user
+ * @param {string} name.body.required - name
+ * @param {string} username.body.required - username
+ * @param {string} email.body.required - email
+ * @param {string} password.body.required - user's password.
+ * @returns {null} 201 - User object created
+ * @returns {Error}  default - Unexpected error
+ */
 export async function handler(req: Request, res: Response) {
-  const { name, username, email, password, previouslyAsked } = req.body
+  const { name, username, email, password } = req.body
 
-  // lowercase email
+  const session = req.session || null
+
+  // lowercase username & email
   await registerUserController(
     name,
     username.toLowerCase(),
     email.toLowerCase(),
     password,
-    previouslyAsked
+    session
   )
 
   res.sendStatus(201)

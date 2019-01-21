@@ -19,9 +19,9 @@ export const questionSchema: Schema = new Schema(
       }
     },
 
-    askedBy: { type: Schema.Types.ObjectId, ref: "Question" },
-    likes: { type: Number, default: 0 },
-    dislikes: { type: Number, default: 0 },
+    askedBy: { type: Schema.Types.ObjectId, ref: "User" },
+    likedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    dislikedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
     question: String,
     query: String,

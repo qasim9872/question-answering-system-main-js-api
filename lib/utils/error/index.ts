@@ -29,12 +29,16 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
+  logger.error(`Error`, err)
   if (err instanceof ev.ValidationError) {
-    return res.status(err.status).json(err)
+    res.status(err.status).json(err)
   } else if (isCustomError(err)) {
-    return res.status(err.code).json(err)
+    res.status(err.code).json({
+      name: err.name,
+      message: err.message
+    })
+  } else {
+    res.status(500).send(err)
   }
-
-  logger.error(`unhandler error`, err)
-  res.status(500).send(err)
+  return
 }

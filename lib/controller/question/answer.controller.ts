@@ -7,6 +7,7 @@ import { IUserModel } from "../../model/user"
 import getResult from "../helper/knowledge-graphs/db-pedia.results"
 import decoder from "../helper/nmt/sparql.decoder"
 import sanitizer from "../helper/question/sanitize-question"
+import { saveSession } from "../helper/user/session"
 
 function getConfig(question: string) {
   const params = {
@@ -24,7 +25,11 @@ export async function saveQuestion(data: IQuestion) {
   return dataModel.toObject()
 }
 
-export default async function(user: IUserModel, question: string) {
+export default async function(
+  user: IUserModel,
+  session: Express.Session | null,
+  question: string
+) {
   // sanitize and clean question
   question = sanitizer(question)
 
@@ -37,6 +42,7 @@ export default async function(user: IUserModel, question: string) {
 
   // get results
   const results = await getResult(sparqlQuery)
+  console.debug(results)
 
   // save question to db
   const dataModel = await saveQuestion({
@@ -46,9 +52,14 @@ export default async function(user: IUserModel, question: string) {
     askedBy: user ? user.id : undefined
   })
 
-  // if user is present, update user object
-  await user.asked.push(dataModel._id)
-  user.save()
+  if (!user && session) {
+    // Update the session
+    if (!session.asked) {
+      session.asked = []
+    }
+    session.asked.push(dataModel._id)
+    await saveSession(session)
+  }
 
   return dataModel
 }

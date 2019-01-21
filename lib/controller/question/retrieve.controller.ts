@@ -1,15 +1,23 @@
 import QuestionModel from "../../model/question"
 
-export async function getQuestionsByParams(params: any) {
-  const results = await QuestionModel.find({ ...params }).sort("-updatedAt")
-  return results.length === 1 ? results[0] : results
+export async function getQuestionsByParams(
+  params: any,
+  alwaysReturnArray = false
+) {
+  const results = await QuestionModel.find({ ...params }).sort("-createdAt")
+  return alwaysReturnArray
+    ? results
+    : results.length === 1
+    ? results[0]
+    : results
 }
 
 export async function paginateQuestions(offset: number, limit: number = 50) {
   const result = await QuestionModel.paginate(
     {},
     {
-      sort: { updatedAt: -1 },
+      sort: { createdAt: -1 },
+      populate: ["askedBy", "likedBy", "dislikedBy"],
       offset,
       lean: true,
       limit

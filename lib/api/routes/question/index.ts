@@ -10,6 +10,11 @@ import {
   schema as answerSchema
 } from "./answer.route"
 import {
+  handler as dislikeHandler,
+  schema as dislikeSchema
+} from "./dislike.route"
+import { handler as likeHandler, schema as likeSchema } from "./like.route"
+import {
   handler as retrieveHandler,
   schema as retrieveSchema
 } from "./retrieve.route"
@@ -21,6 +26,18 @@ router.post(
   validate(answerSchema),
   isAuthenticatedOrAnonymous(),
   answerHandler
+)
+router.post(
+  "/dislike",
+  validate(dislikeSchema),
+  isAuthenticatedOrAnonymous(),
+  dislikeHandler
+)
+router.post(
+  "/like",
+  validate(likeSchema),
+  isAuthenticatedOrAnonymous(),
+  likeHandler
 )
 router.post("/retrieve", validate(retrieveSchema), retrieveHandler)
 

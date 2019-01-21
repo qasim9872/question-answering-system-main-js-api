@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import * as Joi from "joi"
 
-import questionController from "../../../controller/question/answer.controller"
+import like from "../../../controller/question/like.controller"
 import { IUserModel } from "../../../model/user"
 
 export const schema = {
@@ -12,10 +12,9 @@ export const schema = {
 
 export async function handler(req: Request, res: Response) {
   const user: IUserModel = req.user
-  const session = req.session || null
-  const question = req.body.question
+  const questionId = req.body.question
 
-  const answer = await questionController(user, session, question)
+  const updated = await like(user, questionId)
 
-  res.status(200).json(answer)
+  res.status(200).json(updated)
 }

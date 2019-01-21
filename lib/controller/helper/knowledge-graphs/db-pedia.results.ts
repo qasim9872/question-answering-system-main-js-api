@@ -3,6 +3,20 @@ import IResult from "../../../interface/result.interface"
 const dps = require("dbpedia-sparql-client").default
 /* tslint:disable:no-var-requires */
 
+export function getInvalidQueryResponse(): IResult[] {
+  return [
+    {
+      source: "Server",
+      varName: "anonymous",
+      lang: "en",
+      value: [
+        "The extraction from DBpedia failed",
+        "This is possibly due to the generated query being invalid"
+      ].join("\n")
+    }
+  ]
+}
+
 export function dbPediaResults(query: string) {
   return dps
     .client()
@@ -31,7 +45,11 @@ export function extractResult(resultObj: any) {
 }
 
 export default async function(query: string) {
-  const dbPediaResult = await dbPediaResults(query)
+  try {
+    const dbPediaResult = await dbPediaResults(query)
 
-  return extractResult(dbPediaResult)
+    return extractResult(dbPediaResult)
+  } catch (err) {
+    return getInvalidQueryResponse()
+  }
 }

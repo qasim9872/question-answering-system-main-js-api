@@ -1,5 +1,5 @@
 import UserModel from "../../model/user"
-import validateQuestionIds from "../helper/question/validate-id"
+import { findAndUpdateQuestions } from "../helper/question/update"
 import checkUserExists from "../helper/user/check-user"
 
 import Logger from "../../utils/logger"
@@ -14,10 +14,8 @@ export default async function registerUser(
   username: string,
   email: string,
   password: string,
-  previouslyAsked: string[] = []
+  session: Express.Session | null
 ) {
-  const asked = await validateQuestionIds(previouslyAsked)
-
   await checkUserExists(email, username)
 
   const user = await UserModel.create({
@@ -25,10 +23,14 @@ export default async function registerUser(
     username,
     email,
     password,
-    asked,
     // add default avatar
     image: getAvatarUrl(name)
   })
+
+  // update questions if found in session
+  if (session) {
+    await findAndUpdateQuestions(session, user)
+  }
 
   return user
 }

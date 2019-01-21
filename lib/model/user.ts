@@ -14,11 +14,8 @@ export const userSchema: Schema = new Schema(
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    image: String,
-
-    asked: [{ type: Schema.Types.ObjectId, ref: "Question" }],
-    liked: [{ type: Schema.Types.ObjectId, ref: "Question" }],
-    disliked: [{ type: Schema.Types.ObjectId, ref: "Question" }]
+    bio: String,
+    image: String
   },
   {
     timestamps: true
