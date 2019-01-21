@@ -4,8 +4,8 @@ import { IUserModel } from "../../../model/user"
 
 /**
  * This route returns the data for the current user
- * @route POST /auth/user
- * @group auth - Operations about user
+ * @route GET /user
+ * @group user - Operations about user
  * @security JWT
  * @returns {Object} 200 - User Data
  * @returns {Error}  default - Unexpected error
