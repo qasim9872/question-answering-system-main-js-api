@@ -26,10 +26,12 @@ export async function paginateQuestions(
   const result = await QuestionModel.paginate(params, {
     sort: { createdAt: -1 },
     populate: ["askedBy", "likedBy", "dislikedBy"],
-    offset,
+    // set offset to 0 if id is present
+    offset: id ? 0 : offset,
     lean: true,
     limit
   })
+
   return result.docs
 }
 

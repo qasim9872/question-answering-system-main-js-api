@@ -22,7 +22,7 @@ function getConfig(question: string) {
 
 export async function saveQuestion(data: IQuestion) {
   const dataModel = await QuestionModel.create(data)
-  return dataModel.toObject()
+  return dataModel.id
 }
 
 export default async function(
@@ -42,10 +42,9 @@ export default async function(
 
   // get results
   const results = await getResult(sparqlQuery)
-  console.debug(results)
 
   // save question to db
-  const dataModel = await saveQuestion({
+  const answerId = await saveQuestion({
     question,
     query: sparqlQuery,
     results,
@@ -57,9 +56,9 @@ export default async function(
     if (!session.asked) {
       session.asked = []
     }
-    session.asked.push(dataModel._id)
+    session.asked.push(answerId)
     await saveSession(session)
   }
 
-  return dataModel
+  return answerId
 }

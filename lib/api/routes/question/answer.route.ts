@@ -15,7 +15,9 @@ export async function handler(req: Request, res: Response) {
   const session = req.session || null
   const question = req.body.question
 
-  const answer = await questionController(user, session, question)
+  const answerId = await questionController(user, session, question)
 
-  res.status(200).json(answer)
+  res.status(201).json({
+    id: answerId
+  })
 }
