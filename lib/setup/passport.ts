@@ -48,7 +48,7 @@ passport.use(
             message: "Invalid email or password."
           })
         })
-      })
+      }).select("+password")
     }
   )
 )

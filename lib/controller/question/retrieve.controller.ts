@@ -12,17 +12,24 @@ export async function getQuestionsByParams(
     : results
 }
 
-export async function paginateQuestions(offset: number, limit: number = 50) {
-  const result = await QuestionModel.paginate(
-    {},
-    {
-      sort: { createdAt: -1 },
-      populate: ["askedBy", "likedBy", "dislikedBy"],
-      offset,
-      lean: true,
-      limit
-    }
-  )
+export async function paginateQuestions(
+  id: string,
+  offset: number = 0,
+  limit: number = 50
+) {
+  const params = id
+    ? {
+        _id: id
+      }
+    : {}
+
+  const result = await QuestionModel.paginate(params, {
+    sort: { createdAt: -1 },
+    populate: ["askedBy", "likedBy", "dislikedBy"],
+    offset,
+    lean: true,
+    limit
+  })
   return result.docs
 }
 
@@ -31,9 +38,7 @@ export default async function getQuestions(
   offset: number,
   fetch: number
 ) {
-  const results = await (id
-    ? getQuestionsByParams({ _id: id })
-    : paginateQuestions(offset, fetch))
+  const results = await paginateQuestions(id, offset, fetch)
 
   return results
 }
