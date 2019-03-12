@@ -21,6 +21,9 @@ export const schema = {
  * This route can update user data
  * @route Put /user
  * @group user - Operations about user
+ * @param {string} name.body - name
+ * @param {string} bio.body - username
+ * @param {string} password.body - user's password.
  * @security JWT
  * @returns {Object} 200 - Update successful
  * @returns {Error}  default - Unexpected error
@@ -35,7 +38,8 @@ export async function handler(req: Request, res: Response) {
     updated = true
   }
 
-  if (bio && bio !== user.bio) {
+  // Allow setting to empty string
+  if (bio !== user.bio) {
     user.bio = bio
     updated = true
   }

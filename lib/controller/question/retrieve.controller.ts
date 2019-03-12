@@ -4,7 +4,7 @@ export async function getQuestionsByParams(
   params: any,
   alwaysReturnArray = false
 ) {
-  const results = await QuestionModel.find({ ...params }).sort("-createdAt")
+  const results = await QuestionModel.find({ ...params }).sort("-createdAt").populate("askedBy")
   return alwaysReturnArray
     ? results
     : results.length === 1
