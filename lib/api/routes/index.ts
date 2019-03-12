@@ -6,6 +6,7 @@ import authRoutes from "./auth"
 import baseRoutes from "./base"
 import questionRoutes from "./question"
 import userRoutes from "./user"
+import usersRoutes from "./users"
 
 const router = Router()
 
@@ -14,6 +15,9 @@ list("", "baseRoutes", baseRoutes)
 
 router.use("/user", userRoutes)
 list("/user", "userRoutes", userRoutes)
+
+router.use("/users", usersRoutes)
+list("/users", "usersRoutes", usersRoutes)
 
 router.use("/auth", authRoutes)
 list("/auth", "authRoutes", authRoutes)
