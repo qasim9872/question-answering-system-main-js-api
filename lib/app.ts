@@ -7,9 +7,11 @@ import * as express from "express"
 // Middlewares
 import { json, urlencoded } from "body-parser"
 import * as compression from "compression"
+import * as connectMongo from "connect-mongo"
 import * as cors from "cors"
 import * as session from "express-session"
 import * as helmet from "helmet"
+import * as mongoose from "mongoose"
 import * as morgan from "morgan"
 import * as passport from "passport"
 
@@ -30,6 +32,8 @@ const app = express()
 // =======================
 // configuration =========
 // =======================
+
+const mongoStore = connectMongo(session)
 
 app.use(compression())
 app.use(
@@ -53,7 +57,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 24 * 60 * 1000 // 1 day
-    }
+    },
+    store: new mongoStore({ mongooseConnection: mongoose.connection })
   })
 )
 

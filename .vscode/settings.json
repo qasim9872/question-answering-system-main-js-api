@@ -4,6 +4,6 @@
         "editor.formatOnSave": true
     },
     "files.exclude": {
-        "node_modules": true
+        "node_modules": false
     }
 }

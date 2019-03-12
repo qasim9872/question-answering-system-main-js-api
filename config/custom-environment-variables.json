@@ -1,5 +1,8 @@
 {
     "DB": {
         "HOST": "DB_HOST"
+    },
+    "NMT": {
+        "URL": "NMT_URL"
     }
 }

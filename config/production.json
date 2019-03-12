@@ -1,0 +1,8 @@
+{
+    "DB": {
+        "HOST": "mongo"
+    },
+    "NMT": {
+        "URL": "http://nmt:6542"
+    }
+}
