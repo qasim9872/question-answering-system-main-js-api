@@ -2,8 +2,6 @@ import { Express } from "express"
 
 /* tslint:disable:no-var-requires */
 const expressSwagger: any = require("express-swagger-generator")
-/* tslint:disable:no-var-requires */
-const expressListRoutes = require("express-list-routes")
 
 const options = {
   swaggerDefinition: {

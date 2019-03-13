@@ -1,9 +1,0 @@
-{
-    "transform": {
-        "^.+\\.(t|j)sx?$": "ts-jest"
-    },
-    "roots": ["__tests__"],
-    "testRegex": ".+\\.test\\.(ts|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-    "verbose": true
-}
