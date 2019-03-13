@@ -13,11 +13,16 @@ export const schema = {
 }
 
 /**
+ * @typedef loginBody
+ * @property {string} email.required - email
+ * @property {string} password.required - user's password.
+ */
+
+/**
  * This route validates the user credentials and generates a JWT token for the user
  * @route POST /auth/login
  * @group auth - Operations about user
- * @param {string} email.body.required - email - eg: test@user.com
- * @param {string} password.body.required - user's password. - eg: password
+ * @param {loginBody.model} loginBody.body.required - check model for detailed information
  * @returns {Object} 200 - User JWT token
  * @returns {Error}  default - Unexpected error
  */

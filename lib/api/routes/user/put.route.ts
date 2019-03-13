@@ -18,12 +18,18 @@ export const schema = {
 }
 
 /**
+ * @typedef userPutBody
+ * @property {string} name - name
+ * @property {string} username - username
+ * @property {string} email - email
+ * @property {string} password - user's password.
+ */
+
+/**
  * This route can update user data
  * @route Put /user
  * @group user - Operations about user
- * @param {string} name.body - name
- * @param {string} bio.body - username
- * @param {string} password.body - user's password.
+ * @param {userPutBody.model} userPutBody.body - check model for detailed information
  * @security JWT
  * @returns {Object} 200 - Update successful
  * @returns {Error}  default - Unexpected error

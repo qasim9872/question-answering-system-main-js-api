@@ -14,13 +14,18 @@ export const schema = {
 }
 
 /**
+ * @typedef userPostBody
+ * @property {string} name.required - name
+ * @property {string} username.required - username
+ * @property {string} email.required - email
+ * @property {string} password.required - user's password.
+ */
+
+/**
  * This route registers a new user using the data provided. The session data is also migrated
  * @route POST /user
  * @group user - Operations about user
- * @param {string} name.body.required - name
- * @param {string} username.body.required - username
- * @param {string} email.body.required - email
- * @param {string} password.body.required - user's password.
+ * @param {userPostBody.model} userPostBody.body.required - check model for detailed information
  * @returns {null} 201 - User object created
  * @returns {Error}  default - Unexpected error
  */

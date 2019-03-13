@@ -5,7 +5,7 @@ import UserModel from "../../../model/user"
 /**
  * This route returns the data for the user with the given username
  * @route GET /users/{username}
- * @group users - Operations about users
+ * @group Users - Operations about users
  * @param {string} username.path.required - The username of the user being looked up
  * @returns {Object} 200 - User Data
  * @returns {Error}  default - Unexpected error

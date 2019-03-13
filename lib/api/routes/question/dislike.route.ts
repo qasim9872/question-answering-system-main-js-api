@@ -9,7 +9,20 @@ export const schema = {
     question: Joi.string().required()
   }
 }
+/**
+ * @typedef dislikeBody
+ * @property {string} question.required - The id of the question to dislike
+ */
 
+/**
+ * This route updates the answer object and adds the user as someone who dislikes the answer
+ * @route POST /question/dislike
+ * @group Question - Processing questions
+ * @param {dislikeBody.model} dislikeBody.body.required - check model for detailed information
+ * @returns {object} 200 - Updated answer object
+ * @returns {Error}  default - Unexpected error
+ * @security JWT
+ */
 export async function handler(req: Request, res: Response) {
   const user: IUserModel = req.user
   const questionId = req.body.question
