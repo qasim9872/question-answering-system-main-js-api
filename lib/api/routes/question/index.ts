@@ -17,6 +17,7 @@ import {
   schema as dislikeSchema
 } from "./dislike.route"
 import { handler as likeHandler, schema as likeSchema } from "./like.route"
+import { handler as listHandler } from "./list.route"
 import {
   handler as retrieveHandler,
   schema as retrieveSchema
@@ -38,5 +39,7 @@ router.post(
 )
 router.post("/like", validate(likeSchema), isAuthenticated(), likeHandler)
 router.post("/retrieve", validate(retrieveSchema), retrieveHandler)
+
+router.get("/list", listHandler)
 
 export default router
