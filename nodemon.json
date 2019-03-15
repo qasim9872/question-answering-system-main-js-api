@@ -1,5 +1,6 @@
 {
     "ext": "ts",
     "watch": "./lib",
+    "ignore": "./lib/__tests__",
     "exec": "ts-node ./lib/server"
 }

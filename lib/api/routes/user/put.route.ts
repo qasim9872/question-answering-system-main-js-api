@@ -19,9 +19,8 @@ export const schema = {
 
 /**
  * @typedef userPutBody
- * @property {string} name - name
- * @property {string} username - username
- * @property {string} email - email
+ * @property {string} image - image
+ * @property {string} bio - bio
  * @property {string} password - user's password.
  */
 

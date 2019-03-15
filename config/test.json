@@ -1,1 +1,5 @@
-{}
+{
+    "SERVER": {
+        "SECRET": "test-secret"
+    }
+}

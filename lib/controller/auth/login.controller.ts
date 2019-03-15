@@ -4,7 +4,7 @@ import { appSecret } from "./../../config-details/server.config"
 
 export default function genToken(user: IUserModel) {
   const payload = {
-    email: user.email
+    id: user.id
   }
   return jwt.sign(payload, appSecret)
 }

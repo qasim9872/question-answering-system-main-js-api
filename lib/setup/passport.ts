@@ -63,7 +63,7 @@ passport.use(
       secretOrKey: appSecret
     },
     (payload, done) => {
-      User.findOne({ email: payload.email.toLowerCase() }, (err, user: any) => {
+      User.findOne({ _id: payload.id }, (err, user: any) => {
         if (err) {
           return done(err)
         }

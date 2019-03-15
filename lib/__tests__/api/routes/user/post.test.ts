@@ -40,6 +40,8 @@ describe(`POST ${userEndpoint}`, async () => {
         expect(user.username).toBe(username)
         expect(user.email).toBe(email)
 
+        expect(user.image).toBeDefined()
+
         done(err)
       })
   })
