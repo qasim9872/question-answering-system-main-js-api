@@ -12,7 +12,7 @@
     "postversion": "git push && git push --tags",
     "start": "npm run serve",
     "serve": "node dist/server.js",
-    "build": "tsc",
+    "build": "tsc && npm run copy-content",
     "dev": "NODE_ENV=development nodemon",
     "build:watch": "tsc --watch",
     "docs": "typedoc --out docs lib",
@@ -20,7 +20,9 @@
     "lint1": "tslint --project \"./tsconfig.json\"",
     "lint": "tslint -p tsconfig.json",
     "format": "prettier --write \"lib/**/*.ts\" \"lib/**/*.js\"",
-    "test": "NODE_ENV=test jest --config jest.config.json"
+    "test": "NODE_ENV=test jest --config jest.config.json",
+    "copy-content": "copyfiles -f ./lib/content/* dist/content"
+
   },
   "author": "Muhammad Qasim",
   "license": "ISC",
@@ -65,9 +67,9 @@
     "body-parser": "^1.18.3",
     "colors": "^1.3.2",
     "compression": "^1.7.3",
-    "mongodb-memory-server": "^4.2.1",
     "config": "^3.0.1",
     "connect-mongo": "^2.0.3",
+    "copyfiles": "^2.1.0",
     "cors": "^2.8.5",
     "dbpedia-sparql-client": "^0.9.8",
     "express": "^4.16.4",
@@ -80,6 +82,7 @@
     "joi": "^14.1.0",
     "jsonwebtoken": "^8.4.0",
     "mongodb": "^3.1.13",
+    "mongodb-memory-server": "^4.2.1",
     "mongoose": "^5.4.4",
     "mongoose-paginate": "^5.0.3",
     "morgan": "^1.9.1",
