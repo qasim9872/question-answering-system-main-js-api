@@ -1,5 +1,9 @@
 import UserModel from "../../../../model/user"
-import { server, setupTests, teardownTests } from "../../../../setup/test-setup"
+import {
+  server,
+  setupTests,
+  teardownTests
+} from "../../../../setup/test-utils/test-setup"
 
 const baseEndpoint = `/api/v1`
 const userEndpoint = `${baseEndpoint}/user`

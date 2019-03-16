@@ -1,7 +1,5 @@
 import IResult from "../../../interface/result.interface"
-/* tslint:disable:no-var-requires */
-const dps = require("dbpedia-sparql-client").default
-/* tslint:disable:no-var-requires */
+import { dbPediaResults } from "./utils"
 
 export function getResponseForEmptyResult(): IResult[] {
   return [
@@ -26,13 +24,6 @@ export function getInvalidQueryResponse(): IResult[] {
       ].join("\n")
     }
   ]
-}
-
-export function dbPediaResults(query: string) {
-  return dps
-    .client()
-    .query(query)
-    .asJson()
 }
 
 export function extractResult(resultObj: any) {

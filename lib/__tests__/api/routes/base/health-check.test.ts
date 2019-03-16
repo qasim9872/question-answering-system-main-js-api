@@ -1,4 +1,8 @@
-import { server, setupTests, teardownTests } from "../../../../setup/test-setup"
+import {
+  server,
+  setupTests,
+  teardownTests
+} from "../../../../setup/test-utils/test-setup"
 
 const baseEndpoint = `/api/v1`
 const healthCheckEndpoint = `${baseEndpoint}/health-check`

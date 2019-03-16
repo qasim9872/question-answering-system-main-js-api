@@ -2,12 +2,12 @@ import MongodbMemoryServer from "mongodb-memory-server"
 import * as mongoose from "mongoose"
 import * as supertest from "supertest"
 
-import app from "../app"
+import app from "../../app"
 
 // MOCK GENERIC FILES
-jest.mock("../utils/list-routes")
-jest.mock("../setup/swagger")
-jest.mock("../utils/logger")
+jest.mock("../../utils/list-routes")
+jest.mock("../../setup/swagger")
+jest.mock("../../utils/logger")
 
 let mongoServer: any
 
