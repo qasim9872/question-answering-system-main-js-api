@@ -1,4 +1,5 @@
 import { Express } from "express"
+import { hostAddress } from "../config-details/server.config"
 
 /* tslint:disable:no-var-requires */
 const expressSwagger: any = require("express-swagger-generator")
@@ -10,7 +11,7 @@ const options = {
       title: "QA system API",
       version: "1.0.0"
     },
-    host: "localhost:8000",
+    host: hostAddress,
     basePath: "/api/v1",
     produces: ["application/json"],
     schemes: ["http", "https"],

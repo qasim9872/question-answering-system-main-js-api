@@ -4,5 +4,8 @@
     },
     "NMT": {
         "URL": "http://nmt:6542"
+    },
+    "SERVER": {
+        "HOST_ADDRESS": "35.178.196.213:8000"
     }
 }

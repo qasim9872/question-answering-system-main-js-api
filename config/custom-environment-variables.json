@@ -4,5 +4,8 @@
     },
     "NMT": {
         "URL": "NMT_URL"
+    },
+    "SERVER": {
+        "SECRET": "APP_SECRET"
     }
 }

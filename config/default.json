@@ -9,7 +9,8 @@
     },
     "SERVER": {
         "PORT": 8000,
-        "SECRET": "s3cret"
+        "SECRET": "s3cret",
+        "HOST_ADDRESS": "localhost:8000"
     },
     "WINSTON": {
         "FILENAME": "system.log",
