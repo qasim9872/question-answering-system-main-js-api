@@ -21,7 +21,7 @@ export const schema = {
 /**
  * This route validates the user credentials and generates a JWT token for the user
  * @route POST /auth/login
- * @group auth - Operations about user
+ * @group auth - Authentication operations
  * @param {loginBody.model} loginBody.body.required - check model for detailed information
  * @returns {Object} 200 - User JWT token
  * @returns {Error}  default - Unexpected error

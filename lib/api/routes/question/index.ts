@@ -22,6 +22,7 @@ import {
   handler as retrieveHandler,
   schema as retrieveSchema
 } from "./retrieve.route"
+import { handler as statsHandler } from "./stats.route"
 
 const router = Router()
 
@@ -41,5 +42,6 @@ router.post("/like", validate(likeSchema), isAuthenticated(), likeHandler)
 router.post("/retrieve", validate(retrieveSchema), retrieveHandler)
 
 router.get("/list", listHandler)
+router.get("/stats", statsHandler)
 
 export default router

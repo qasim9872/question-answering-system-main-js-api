@@ -9,7 +9,7 @@ import decoder from "../helper/nmt/sparql.decoder"
 import sanitizer from "../helper/question/sanitize-question"
 import { saveSession } from "../helper/user/session"
 
-function getConfig(question: string) {
+export function getConfig(question: string) {
   const params = {
     source: question
   }
@@ -36,6 +36,7 @@ export default async function(
   // call python nmt api
   const options = getConfig(question)
   const encodedSparql = await rp(options)
+  console.log(encodedSparql)
 
   // decode sparql
   const sparqlQuery = decoder(encodedSparql)
