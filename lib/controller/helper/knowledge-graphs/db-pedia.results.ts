@@ -4,7 +4,7 @@ import { dbPediaResults } from "./utils"
 export function getResponseForEmptyResult(): IResult[] {
   return [
     {
-      source: "Server",
+      source: "DBPedia",
       varName: "anonymous",
       lang: "en",
       value: ["No response available for the provided query"].join("\n")

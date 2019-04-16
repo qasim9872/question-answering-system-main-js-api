@@ -31,10 +31,10 @@ export default async function(
   question: string
 ) {
   // sanitize and clean question
-  question = sanitizer(question)
+  const sanitizedQuestion = sanitizer(question)
 
   // call python nmt api
-  const options = getConfig(question)
+  const options = getConfig(sanitizedQuestion)
   const encodedSparql = await rp(options)
   console.log(encodedSparql)
 

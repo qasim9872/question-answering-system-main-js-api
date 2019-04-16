@@ -1,7 +1,8 @@
 {
     "DB": {
+        "CREDENTIALS": "qa-system-api",
         "NAME": "qa-system",
-        "HOST": "localhost",
+        "HOST": "qa-system-o6fwf.mongodb.net",
         "PORT": "27017"
     },
     "NMT": {

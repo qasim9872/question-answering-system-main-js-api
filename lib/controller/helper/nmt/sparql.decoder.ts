@@ -83,9 +83,36 @@ export function cleanDBO(sparql: string) {
   return sparql
 }
 
+export function replacePrefix(prefix: string, url: string, sparql: string) {
+  const regex = new RegExp(`${prefix}(\\S*)`, "g")
+
+  if (sparql.match(regex)) {
+    // Make sure url has a slash at the end
+    sparql = sparql.replace(regex, `<${url}$1>`)
+  }
+
+  return sparql
+}
+
+export function replacePrefixes(sparql: string) {
+  REPLACEMENTS
+    // Only sub arrays with more than 2 elements have url
+    // .filter((r) => r.length > 2)
+    .slice(0, 4)
+    .forEach((r) => {
+      const prefix = r[0]
+      const url = r[r.length - 2]
+
+      sparql = replacePrefix(prefix, url, sparql)
+    })
+
+  return sparql
+}
+
 export function fixURI(sparql: string) {
   //   sparql = replaceDBR(sparql)
   sparql = cleanDBO(sparql)
+  sparql = replacePrefixes(sparql)
 
   // edge case
   //   if query[-2:]=="}>":
@@ -106,5 +133,6 @@ export default function decoder(encodedSparql: string) {
   // fix uri
   const query = fixURI(sparql)
 
-  return [defaultPrefixes, query].join("\n")
+  // return [defaultPrefixes, query].join("\n")
+  return query
 }
