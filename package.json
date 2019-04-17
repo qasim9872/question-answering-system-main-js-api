@@ -22,7 +22,6 @@
     "format": "prettier --write \"lib/**/*.ts\" \"lib/**/*.js\"",
     "test": "NODE_ENV=test jest --config jest.config.json",
     "copy-content": "copyfiles -f ./lib/content/* dist/content"
-
   },
   "author": "Muhammad Qasim",
   "license": "ISC",
@@ -62,6 +61,7 @@
     "typescript": "^3.1.6"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.123",
     "app-root-path": "^2.1.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
@@ -81,6 +81,7 @@
     "helmet": "^3.15.0",
     "joi": "^14.1.0",
     "jsonwebtoken": "^8.4.0",
+    "lodash": "^4.17.11",
     "mongodb": "^3.1.13",
     "mongodb-memory-server": "^4.2.1",
     "mongoose": "^5.4.4",
