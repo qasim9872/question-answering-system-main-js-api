@@ -16,6 +16,7 @@ import {
   handler as dislikeHandler,
   schema as dislikeSchema
 } from "./dislike.route"
+import { handler as evaluateHandler } from "./evaluate.route"
 import { handler as likeHandler, schema as likeSchema } from "./like.route"
 import { handler as listHandler } from "./list.route"
 import {
@@ -40,6 +41,7 @@ router.post(
 )
 router.post("/like", validate(likeSchema), isAuthenticated(), likeHandler)
 router.post("/retrieve", validate(retrieveSchema), retrieveHandler)
+router.post("/evaluate", evaluateHandler)
 
 router.get("/list", listHandler)
 router.get("/stats", statsHandler)
