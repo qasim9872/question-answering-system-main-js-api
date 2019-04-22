@@ -14,7 +14,7 @@ const options = {
     host: hostAddress,
     basePath: "/api/v1",
     produces: ["application/json"],
-    schemes: ["http", "https"],
+    schemes: ["http"],
     securityDefinitions: {
       JWT: {
         type: "apiKey",
