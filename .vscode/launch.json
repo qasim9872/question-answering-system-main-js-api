@@ -4,30 +4,41 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [{
-        "type": "node",
-        "request": "launch",
-        "name": "Launch Program",
-        "program": "${workspaceFolder}/dist/server.js",
-        "preLaunchTask": "tsc: build - tsconfig.json",
-        "console": "integratedTerminal",
-        "outFiles": [
-            "${workspaceFolder}/dist/**/*.js"
-        ]
-    }, {
-        "type": "node",
-        "request": "launch",
-        "name": "Jest Current File",
-        "program": "${workspaceFolder}/node_modules/.bin/jest",
-        "args": [
-            "NODE_ENV=test",
-            "--config",
-            "jest.config.json",
-            "${relativeFile}"
-        ],
-        "console": "integratedTerminal",
-        "internalConsoleOptions": "neverOpen",
-        "windows": {
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            "type": "node",
+            "request": "launch",
+            "name": "Run Script",
+            "program": "${workspaceFolder}/node_modules/ts-node/dist/bin.js",
+            "console": "integratedTerminal",
+            "args": [
+                "${relativeFile}"
+            ],
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/dist/server.js",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "console": "integratedTerminal",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
+        }, {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest Current File",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": [
+                "NODE_ENV=test",
+                "--config",
+                "jest.config.json",
+                "${relativeFile}"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "windows": {
+                "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            }
         }
-    }]
+    ]
 }
