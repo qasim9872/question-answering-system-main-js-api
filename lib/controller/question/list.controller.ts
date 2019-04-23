@@ -7,7 +7,7 @@ async function loadList() {
     "..",
     "..",
     "content",
-    "training_data.en"
+    "all_data.en"
   )
 
   const data: string = (await readFile(pathToQuestionList)) as any
