@@ -3,7 +3,7 @@ import { fetchOverallStats } from "../../../controller/stats/overall.controller"
 
 /**
  * This route calculates and returns the overall statistics
- * @route GET /stats
+ * @route GET /stats/overall
  * @group stats - Operations about statistics
  * @returns {Object} 200 - Stats
  * @returns {Error}  default - Unexpected error

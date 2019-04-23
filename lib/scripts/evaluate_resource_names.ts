@@ -1,4 +1,4 @@
-import { loadFileFromContent, runEvaluationInParallel } from "./helper"
+import { loadFileFromContent, runEvaluation } from "./helper"
 
 import Logger from "../utils/logger"
 const logger = Logger.getLogger(__filename)
@@ -61,14 +61,26 @@ export async function evaluate() {
   const extractNameRegex = `(.*)` // [a-z\\s]
   const questionRegex = replaceInTemplates(questionTemplates, extractNameRegex)
 
-  //   const originalList = await loadFileFromContent("all_data.en")
-  const originalList = await loadFileFromContent("dev_data.en")
+  const originalList = await loadFileFromContent("all_data.en")
+  //   const originalList = await loadFileFromContent("dev_data.en")
 
   const names = extractNames(originalList, questionRegex)
+  //   logger.info(names.length)
   const list = createNewList(names, questionTemplates)
 
-  const result = await runEvaluationInParallel(list, logger, 14)
-  logger.info(JSON.stringify(result, null, 2))
+  const result = await runEvaluation(list, logger, 1)
+  logger.info(
+    JSON.stringify(
+      {
+        total: result.total,
+        invalid: result.invalid,
+        inaccurate: result.inaccurate,
+        correct: result.correct
+      },
+      null,
+      2
+    )
+  )
 }
 
 evaluate()

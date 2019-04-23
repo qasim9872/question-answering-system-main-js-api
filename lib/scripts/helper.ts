@@ -2,7 +2,8 @@ import { join } from "path"
 import * as rp from "request-promise"
 import { readFile } from "../utils/file-system"
 
-import { hostAddress } from "../config-details/server.config"
+// import { hostAddress } from "../config-details/server.config"
+const hostAddress = "35.178.196.213:8000" // deployed host address
 import Logger from "../utils/logger"
 
 export async function loadFileFromContent(filename: string) {
@@ -50,7 +51,7 @@ export async function runEvaluationInParallel(
   const results: any = await Promise.all(
     subLists.map((subList, index) => runEvaluation(subList, logger, index))
   )
-  //   logger.info(results)
+  logger.info(results)
 
   const combined: any = {}
   for (const result of results) {

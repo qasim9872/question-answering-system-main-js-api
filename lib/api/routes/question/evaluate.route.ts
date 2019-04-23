@@ -6,8 +6,6 @@ import decoder from "../../../controller/helper/nmt/sparql.decoder"
 import sanitizer from "../../../controller/helper/question/sanitize-question"
 import { getConfig } from "../../../controller/question/answer.controller"
 
-const IGNORE_RESOURCES = ["musician", "french", "rapper"]
-
 function isAccurate(question: string, query: string, invalid: boolean) {
   if (!invalid) {
     const prefix = "dbr_"

@@ -38,6 +38,21 @@ export async function fetchQuestionStats(totalQuestions: IQuestionModel[]) {
   // total number of questions
   const totalQuestionsLength = totalQuestions.length
 
+  const { totalLikes, totalDislikes } = totalQuestions.reduce(
+    (combined, question) => {
+      combined.totalLikes += question.likedBy ? question.likedBy.length : 0
+      combined.totalDislikes += question.dislikedBy
+        ? question.dislikedBy.length
+        : 0
+
+      return combined
+    },
+    {
+      totalLikes: 0,
+      totalDislikes: 0
+    }
+  )
+
   // total failed questions
   const failedQuestions = await getQuestionsByParams(
     {
@@ -56,6 +71,8 @@ export async function fetchQuestionStats(totalQuestions: IQuestionModel[]) {
   return {
     total: totalQuestionsLength,
     failed: failedQuestionsLength,
-    successful: successfulQuestionsLength
+    successful: successfulQuestionsLength,
+    totalLikes,
+    totalDislikes
   }
 }
