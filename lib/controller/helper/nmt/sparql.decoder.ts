@@ -1,3 +1,5 @@
+// Code taken from https://github.com/AKSW/NSpM/blob/master/generator_utils.py
+
 const REPLACEMENTS = [
   ["dbo:", "http://dbpedia.org/ontology/", "dbo_"],
   ["dbp:", "http://dbpedia.org/property/", "dbp_"],

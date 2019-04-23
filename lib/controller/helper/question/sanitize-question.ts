@@ -1,11 +1,11 @@
 const ENDING_CHARACTERS = ["?", ".", "!"]
 
 export function checkEnding(str: string) {
-  ENDING_CHARACTERS.forEach((character) => {
+  for (const character of ENDING_CHARACTERS) {
     if (str.endsWith(character)) {
       return true
     }
-  })
+  }
 
   return false
 }
